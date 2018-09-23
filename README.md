@@ -17,11 +17,13 @@ Python APIs needed
 
 Create App on [Reddit](https://www.reddit.com/prefs/apps/)
 
+Enter in [OAuth](https://praw.readthedocs.io/en/latest/getting_started/authentication.html) info in getData.py
+
 ```python
-reddit = praw.Reddit(client_id='CLIENT_ID',        
-						client_secret="CLIENT_SECRET",
-						user_agent='USER_AGENT')
+reddit = praw.Reddit(client_id='CLIENT_ID', client_secret="CLIENT_SECRET", user_agent='USER_AGENT')
 ```
+
+Run, and then just put in the subreddit you would like to run through, keyword, and how many top posts
 
 
 
