@@ -93,7 +93,7 @@ class mclass:
 		
 		
 		
-		a.set_xticks(x[::20]) 
+		a.set_xticks(x[::25]) 
 		
 		canvas = FigureCanvasTkAgg(fig, master=self.root)
 		canvas.get_tk_widget().pack()
