@@ -42,24 +42,6 @@ class mclass:
 		b.pack()
 		
 	def plot (self):
-		'''x=np.array ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-		v= np.array ([16,16.31925,17.6394,16.003,17.2861,17.3131,19.1259,18.9694,22.0003,22.81226])
-		p= np.array ([16.23697,     17.31653,     17.22094,     17.68631,     17.73641 ,    18.6368,
-			19.32125,     19.31756 ,    21.20247  ,   22.41444   ,  22.11718  ,   22.12453])
-
-		fig = Figure(figsize=(6,6))
-		a = fig.add_subplot(111)
-		a.scatter(v,x,color='red')
-		a.plot(p, range(2 +max(x)),color='blue')
-		a.invert_yaxis()
-
-		a.set_title ("Estimation Grid", fontsize=16)
-		a.set_ylabel("Y", fontsize=14)
-		a.set_xlabel("X", fontsize=14)
-
-		canvas = FigureCanvasTkAgg(fig, master=self.root)
-		canvas.get_tk_widget().pack()
-		canvas.draw()'''
 		
 		file = open("data.txt", "r")
 		holder = file.read()
@@ -69,7 +51,7 @@ class mclass:
 		dates = []
 		values = []
 
-		#print(holder)
+		
 
 		for x in range(int(len(holder)/3)):
 			dates.append(holder[(3*x)])
@@ -77,8 +59,7 @@ class mclass:
 		for x in range(int(len(holder)/3)):
 			values.append(float(holder[(3*x)+2]))
 	
-		#print (dates)
-		#print (values)
+		
 		dates.sort()
 		values.sort()
 		x = [datetime.strptime(d, '%Y%m%d').strftime('%m/%d/%Y') for d in dates]
@@ -89,9 +70,6 @@ class mclass:
 		a.set_title ("Estimation Grid", fontsize=16)
 		a.set_ylabel("Sentiment", fontsize=14)
 		a.set_xlabel("Date", fontsize=14)
-		#a.xticks(fontsize=10, rotation=70)
-		
-		
 		
 		a.set_xticks(x[::25]) 
 		
@@ -99,15 +77,6 @@ class mclass:
 		canvas.get_tk_widget().pack()
 		canvas.draw()
 		
-		'''plt.xticks(fontsize=10, rotation=80)
-		plt.scatter(x,values)
-		plt.ylabel('Sentiment')
-		plt.xlabel('Time')
-		#plt.gcf().autofmt_xdate()
-		plt.show()'''
-			
-		
-
 
 	def run(self):
 		file_input = open('input.txt', 'w')
@@ -120,9 +89,9 @@ class mclass:
 		file_input.close()
 		
 		
-		reddit = praw.Reddit(client_id='SU3DL2_kxAdtqw',
-						client_secret="hq0dRanTH4gmFcN4tfbFXcAcKeA",
-						user_agent='RamhacksMW')
+		reddit = praw.Reddit(client_id='CLIENT_ID',
+						client_secret="CLIENT_SECRET",
+						user_agent='USER_AGENT')
 					 
 		file_input = open('input.txt', 'r')
 	
@@ -212,7 +181,3 @@ class mclass:
 root=Tk()
 start=mclass(root)
 mainloop()
-
-
-
-#run("nike+news","nike",100)
