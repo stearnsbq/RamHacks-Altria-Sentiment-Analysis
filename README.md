@@ -4,10 +4,15 @@
 
 Python APIs needed
 >[MatPlotLib](https://matplotlib.org/)
+
 >[NumPy](http://www.numpy.org/)
+
 >[Pandas](https://pandas.pydata.org/)
+
 >[PRAW](https://praw.readthedocs.io/en/latest/)
+
 >[NLTK](https://www.nltk.org/)
+
 >[Tkinter](https://wiki.python.org/moin/TkInter) 
 
 
