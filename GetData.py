@@ -2,6 +2,8 @@ import praw
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import datetime as dt
+import matplotlib.pyplot as plt
+import pandas as pd
 
 reddit = praw.Reddit(client_id='SU3DL2_kxAdtqw',
                      client_secret="hq0dRanTH4gmFcN4tfbFXcAcKeA",
@@ -12,15 +14,17 @@ file_input = open('input.txt', 'r')
 sin = file_input.read()
 sf = sin.split('\n')
 sub_name = sf[0]
-limit_num = int(float(sf[1]))
+sub_search = sf[1]
+limit_num = int(float(sf[2]))
 
-subreddit_nike = reddit.subreddit(sub_name)
 
-data_subreddit_nike = subreddit_nike.search('nike',limit=limit_num)
+subreddit = reddit.subreddit(sub_name)
 
-file_data_nike = open("data_nike.txt", 'w')
+data_subreddit = subreddit.search(sub_search,limit=limit_num)
 
-for submission in data_subreddit_nike:
+file_data = open("data.txt", 'w')
+
+for submission in data_subreddit:
 	
 	def get_date(created):
 		return dt.datetime.fromtimestamp(created)
@@ -32,9 +36,9 @@ for submission in data_subreddit_nike:
 	dataD=submission.created
 	dataTD=get_date(dataD)
 	
-	file_data_nike.write("\n")
-	file_data_nike.write(str(dataTD))
-	file_data_nike.write("\n")
+	file_data.write("\n")
+	file_data.write(str(dataTD))
+	file_data.write("\n")
 	
 	sid = SentimentIntensityAnalyzer()
 	infull = ""
@@ -63,14 +67,11 @@ for submission in data_subreddit_nike:
 	for sen in setToken:
 		ss=sid.polarity_scores(sen)
 		s=ss['compound']
-		#file_data_nike.write("T")
-		#file_data_nike.write(str(s))
-		#file_data_nike.write('\n')
+		
 		ogpost_score += s
 		total_score += s
 		counter += 1
-		#print(s)
-		#print()
+		
 	print(ogpost_score)
 	for sen in setTokenc:
 		ss=sid.polarity_scores(sen)
@@ -81,13 +82,8 @@ for submission in data_subreddit_nike:
 			continue
 		total_score += s
 		counter += 1
-		#file_data_nike.write(str(s))
-		#file_data_nike.write('\n')
-		
-		#print(s)
-		#print()
-	#file_data_nike.write("\n\n")
+	
 	average_score = total_score / counter
-	file_data_nike.write(str(average_score))
+	file_data.write(str(average_score))
 
-file_data_nike.close()
+file_data.close()
