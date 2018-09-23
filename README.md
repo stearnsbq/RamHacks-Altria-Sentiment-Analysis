@@ -15,6 +15,13 @@ Python APIs needed
 
 >[Tkinter](https://wiki.python.org/moin/TkInter) 
 
+Create App on [Reddit](https://www.reddit.com/prefs/apps/)
+
+```python
+reddit = praw.Reddit(client_id='CLIENT_ID',        
+						client_secret="CLIENT_SECRET",
+						user_agent='USER_AGENT')
+```
 
 
 
