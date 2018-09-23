@@ -36,9 +36,9 @@ for submission in data_subreddit:
 	dataD=submission.created
 	dataTD=get_date(dataD)
 	
-	file_data.write("\n")
+	file_data.write(" ")
 	file_data.write(str(dataTD))
-	file_data.write("\n")
+	file_data.write(" ")
 	
 	sid = SentimentIntensityAnalyzer()
 	infull = ""
