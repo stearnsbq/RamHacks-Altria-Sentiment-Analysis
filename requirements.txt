@@ -1,0 +1,6 @@
+MatPlotLib
+NumPy
+Pandas
+PRAW
+NLTK
+Tkinter

@@ -1,3 +1,4 @@
-news
-trump
-100
+all
+minneapolis
+5
+

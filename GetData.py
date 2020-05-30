@@ -6,7 +6,8 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 from tkinter import *
-import matplotlib
+import matplotlib 
+import matplotlib.pyplot as plt
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import *
 from matplotlib.figure import Figure
@@ -40,58 +41,62 @@ class mclass:
 		
 		b=Button(root, text="Run", width=20, command = self.run)
 		b.pack()
+
+
+	def smooth(self, values):
+
+		result = dict()
+
+		for i in range(len(values)):
+			result[values[i][0]] = np.array([]);
+			for j in range(len(values)):
+				if(values[i][0] == values[j][0]):
+					result[values[i][0]] = np.append(result[values[i][0]], [float(values[j][1])])
+
+		for key in result:
+			result[key] = result[key].mean()
+
+
+		return result
+
+
+
 		
 	def plot (self):
 		
 		file = open("data.txt", "r")
 		holder = file.read()
-		
-		holder = [x for x in  re.split(' ', holder) if x]
+
+		holder = re.split('\n', holder)
 		
 		dates = []
 		values = []
 
 		
+		for x in holder:
+			if(len(x) <= 0):
+				continue
+			val = x.split(' ')
+			dates.append(val[0])
+			values.append(val[2])
 
-		for x in range(int(len(holder)/3)):
-			dates.append(holder[(3*x)])
-		dates=[re.compile(r"-").sub("", m) for m in dates]
-		for x in range(int(len(holder)/3)):
-			values.append(float(holder[(3*x)+2]))
+
+		sorted_values = [[date, x] for date, x in sorted(zip(dates,values))]
+
+		sorted_values = self.smooth(sorted_values)
+
 		
-		sorted_values = [x for _,x in sorted(zip(dates,values))]
-		dates.sort()
-		
-		
-		#dates.sort()
-		#values.sort()
-		x = [datetime.strptime(d, '%Y%m%d').strftime('%m/%d/%Y') for d in dates]
-		#y = [data_values[]]
-		
-		fig = Figure(figsize=(10,6))
-		a = fig.add_subplot(111)
-		a.scatter(x,sorted_values)
-		a.set_title ("Sentiment vrs Time", fontsize=16)
-		a.set_ylabel("Sentiment", fontsize=14)
-		a.set_xlabel("Date", fontsize=14)
-		
-		#a.set_xticks(x[::20]) 
-		
-		canvas = FigureCanvasTkAgg(fig, master=self.root)
-		canvas.get_tk_widget().pack()
-		canvas.draw()
+		x = list(sorted_values.keys())
+		y = list(sorted_values.values())
+
+
+		plt.plot(x, y, color='green', marker='o')
+			
+
+		plt.show()
 		
 
 	def run(self):
-		file_input = open('input.txt', 'w')
-
-		file_input.write(self.e1.get())
-		file_input.write("\n")
-		file_input.write(self.e2.get())
-		file_input.write("\n")
-		file_input.write(self.e3.get())
-		file_input.close()
-		
 		
 		reddit = praw.Reddit(client_id='SU3DL2_kxAdtqw',
 						client_secret="hq0dRanTH4gmFcN4tfbFXcAcKeA",
@@ -105,14 +110,14 @@ class mclass:
 		sub_search = sf[1]
 		limit_num = int(float(sf[2]))
 
-		subreddit = reddit.subreddit(sub_name)
+		subreddit = reddit.subreddit(self.e1.get())
 
-		data_subreddit = subreddit.search(sub_search,limit=limit_num)
+		data_subreddit = subreddit.search(self.e2.get(),limit=int(self.e3.get()))
+
 
 		file_data = open("data.txt", 'w')
 
 		for submission in data_subreddit:
-	
 			def get_date(created):
 				return dt.datetime.fromtimestamp(created)
 	
@@ -123,9 +128,7 @@ class mclass:
 			dataD=submission.created
 			dataTD=get_date(dataD)
 	
-			file_data.write(" ")
-			file_data.write(str(dataTD))
-			file_data.write(" ")
+			file_data.write(str(dataTD) + " ")
 	
 			sid = SentimentIntensityAnalyzer()
 			infull = ""
@@ -171,7 +174,7 @@ class mclass:
 				counter += 1
 	
 			average_score = total_score / counter
-			file_data.write(str(average_score))
+			file_data.write(str(average_score) + "\n")
 
 		file_data.close()
 		self.plot()
@@ -184,4 +187,6 @@ class mclass:
 	
 root=Tk()
 start=mclass(root)
+
+
 mainloop()
