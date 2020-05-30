@@ -1,5 +1,5 @@
 {
-  "description": "A basic reddit comment and post scraper than gets a sentiment analysis of each comment and post given a keyword",
+  "description": "A basic reddit comment and post scraper that performs sentiment analysis of each comment and post given a keyword",
   "accomplishments": [ "Implement a reddit crawler that grabs comments and posts", "Perform sentiment analysis on a dataset", "graph the sentiment over time for a given topic" ],
   "technologies": ["Python", "PRAW", "Pandas", "Tkinter", "Sentiment analysis", "NLP"]
 }
