@@ -1,5 +1,5 @@
 {
-  "description": "A basic reddit comment and post scraper that performs sentiment analysis of each comment and post given a keyword",
-  "accomplishments": [ "Implement a reddit crawler that grabs comments and posts", "Perform sentiment analysis on a dataset", "graph the sentiment over time for a given topic" ],
+  "description": "A basic reddit comment and post scraper using python with PRAW that performs sentiment analysis of each comment and post given a keyword. Created as part of the Hack-a-thon RamHacks 2018",
+  "accomplishments": [ "Implement a reddit crawler that grabs comments and posts", "Perform sentiment analysis on a dataset", "Graph the sentiment over time for a given topic" ],
   "technologies": ["Python", "PRAW", "Pandas", "Tkinter", "Sentiment analysis", "NLP"]
 }
