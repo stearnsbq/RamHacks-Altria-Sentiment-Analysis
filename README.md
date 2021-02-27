@@ -3,7 +3,7 @@
 <h2>How To Use</h2>  
 
 Python APIs needed 
->[MatPlotLib](https://matplotlib.org/)
+>[MatPlotLib](https://matplotlib.org/) 
 
 >[NumPy](http://www.numpy.org/)
 
